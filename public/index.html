@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXAM BROWSER - Sistem Ujian CBT Terkunci & Aman</title>
+  <meta name="description" content="Aplikasi Exam Browser dan CBT Terpadu dengan Fitur Anti-Curang, Kiosk Mode, dan Monitoring Pengawas Real-Time.">
+  
+  <!-- Modern Inter & Roboto Mono Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/exam.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<div id="app-root">
+  <!-- ============================================================
+       TOP SYSTEM BAR (Always visible in Kiosk)
+       ============================================================ -->
+  <header class="system-topbar" id="system-topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo" onclick="window.ExamApp.goHome()" style="cursor: pointer;">
+        <div class="logo-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>EXAM BROWSER</h1>
+        </div>
+        <span class="logo-badge">SECURE KIOSK</span>
+      </div>
+    </div>
+
+    <div class="topbar-center">
+      <div class="system-badge active" id="badge-network-status">
+        <span class="status-dot"></span>
+        <span id="label-network-status">ONLINE</span>
+      </div>
+      <div class="system-badge" id="badge-kiosk-status">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span>Layar Terkunci</span>
+      </div>
+    </div>
+
+    <div class="topbar-right">
+      <div class="system-clock" id="system-clock-display">00:00:00</div>
+      
+      <!-- Battery status if available -->
+      <div class="system-badge" id="system-battery-display" style="display: none;">
+        <span>🔋 100%</span>
+      </div>
+
+      <!-- Proctor / Admin Exit Button -->
+      <button class="btn-exit-kiosk" id="btn-open-exit-modal" title="Keluar Kiosk (Khusus Pengawas/Guru)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+          <polyline points="10 17 15 12 10 7"/>
+          <line x1="15" y1="12" x2="3" y2="12"/>
+        </svg>
+        <span>Keluar (PIN)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       VIEW 1: PORTAL / MODE SELECTION (HOME)
+       ============================================================ -->
+  <main class="app-view active" id="view-portal">
+    <div class="portal-container">
+      <div class="portal-hero">
+        <div class="portal-badge">
+          <span>🛡️ Safe Exam Environment</span>
+        </div>
+        <h2>Pusat Ujian Berbasis Komputer (CBT)</h2>
+        <p>Aplikasi ujian aman anti-curang dengan proteksi layar penuh, pemblokiran pintasan keyboard, dan pengawasan proctor real-time.</p>
+      </div>
+
+      <!-- Mode Cards Grid -->
+      <div class="mode-grid">
+        <!-- Option 1: CBT Ujian Internal -->
+        <div class="mode-card primary">
+          <div class="card-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <div class="card-info">
+            <h3>Ujian CBT Internal (Lokal)</h3>
+            <p>Mulai mengerjakan ujian mandiri langsung di dalam aplikasi. Dilengkapi timer waktu, navigasi soal, dan penilaian otomatis.</p>
+          </div>
+          <ul class="card-features">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Login Siswa (NISN & Token Ujian)
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Navigasi Soal Ragu-ragu & Selesai
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Anti-Pindah Tab & Anti-Inspect
+            </li>
+          </ul>
+          <button class="btn-card primary" onclick="window.ExamApp.switchView('view-student-login')">
+            <span>Masuk Ujian Siswa</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+
+        <!-- Option 2: Browser CBT Eksternal -->
+        <div class="mode-card secondary">
+          <div class="card-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div class="card-info">
+            <h3>Browser Ujian Eksternal</h3>
+            <p>Buka tautan ujian online sekolah, Google Forms, Moodle, Candy CBT, atau server lokal dengan bingkai aman terkunci.</p>
+          </div>
+          <ul class="card-features">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Dukungan Google Forms & Moodle LMS
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Kiosk Terkunci Tetap Aktif
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Dilarang Membuka Tab Baru
+            </li>
+          </ul>
+          <button class="btn-card secondary" onclick="window.ExamApp.switchView('view-external-browser')">
+            <span>Buka Browser Ujian</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+
+        <!-- Option 3: Admin & Pengawas -->
+        <div class="mode-card admin">
+          <div class="card-icon-box">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="card-info">
+            <h3>Portal Guru & Pengawas</h3>
+            <p>Kelola bank soal, pantau aktivitas siswa secara real-time, generate token ujian, dan unduh rekap nilai siswa (Excel/CSV).</p>
+          </div>
+          <ul class="card-features">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Live Proctor Monitoring Siswa
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Buka Kunci Siswa Terblokir
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Download Rekap Nilai ke Excel
+            </li>
+          </ul>
+          <button class="btn-card admin" onclick="window.ExamApp.openAdminLoginModal()">
+            <span>Masuk Dashboard Pengawas</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- System Diagnostics & Environment Status -->
+      <div class="system-diagnostics">
+        <div class="diag-item">
+          <div class="diag-icon">🖥️</div>
+          <div class="diag-text">
+            <h4>Resolusi Layar</h4>
+            <p id="diag-resolution">1920 x 1080</p>
+          </div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-icon">🔒</div>
+          <div class="diag-text">
+            <h4>Status Keamanan</h4>
+            <p style="color:#34d399;">Anti-Cheat Aktif</p>
+          </div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-icon">📡</div>
+          <div class="diag-text">
+            <h4>Koneksi Jaringan</h4>
+            <p id="diag-connection-text">Terhubung (LAN / Online)</p>
+          </div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-icon">🔑</div>
+          <div class="diag-text">
+            <h4>Token Simulasi</h4>
+            <p><code style="color:#38bdf8; font-weight:700;">EXM2026</code></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============================================================
+       VIEW 2: EXTERNAL EXAM BROWSER (Google Forms / Moodle / Custom IP)
+       ============================================================ -->
+  <div class="app-view" id="view-external-browser">
+    <div class="external-browser-container">
+      <div class="external-navbar">
+        <button class="btn-secondary" onclick="window.ExamApp.goHome()" style="padding: 6px 12px; font-size: 13px;">
+          ← Kembali ke Beranda
+        </button>
+        <button class="btn-icon-bar" id="btn-reload-external" title="Muat Ulang Halaman">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+        </button>
+        <select class="form-input" id="external-preset-select" style="max-width: 220px; padding: 6px 12px; font-size: 13px;">
+          <option value="">-- Pilih Tautan Preset --</option>
+          <option value="https://docs.google.com/forms">Google Forms</option>
+          <option value="https://moodle.org">Moodle LMS</option>
+          <option value="http://localhost:3000">CBT Lokal (Simulasi)</option>
+        </select>
+        <input type="text" class="external-url-input" id="external-url-input" placeholder="Masukkan URL Ujian (contoh: https://forms.gle/... atau IP Server)" value="https://docs.google.com/forms">
+        <button class="btn-primary" id="btn-go-external-url" style="padding: 6px 16px; font-size: 13px;">
+          Buka URL
+        </button>
+      </div>
+      <div class="external-frame-wrap">
+        <iframe id="external-exam-iframe" class="external-iframe" src="about:blank" sandbox="allow-scripts allow-forms allow-same-origin allow-popups"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIEW 3: STUDENT CBT LOGIN
+       ============================================================ -->
+  <div class="app-view" id="view-student-login">
+    <div class="student-login-wrap">
+      <div class="login-card">
+        <div class="login-header">
+          <div class="login-icon-badge">📝</div>
+          <h2>Masuk Sesi Ujian</h2>
+          <p>Masukkan identitas siswa dan token ujian yang diberikan oleh pengawas.</p>
+        </div>
+
+        <form id="student-login-form">
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label class="form-label" for="student-nisn-input">Nomor Induk Siswa Nasional (NISN)</label>
+            <input type="text" class="form-input" id="student-nisn-input" placeholder="Contoh: 1234567890" required value="0012345678">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label class="form-label" for="student-name-input">Nama Lengkap Siswa</label>
+            <input type="text" class="form-input" id="student-name-input" placeholder="Nama lengkap sesuai data sekolah" required value="Ahmad Farhan">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label class="form-label" for="student-class-input">Kelas / Rombel</label>
+            <input type="text" class="form-input" id="student-class-input" placeholder="Contoh: XII MIPA 1" value="XII MIPA 1">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label class="form-label" for="student-token-input">Token Ujian (6 Karakter)</label>
+            <input type="text" class="form-input" id="student-token-input" placeholder="Contoh: EXM2026" required value="EXM2026" style="text-transform: uppercase; font-family: monospace; letter-spacing: 2px; font-weight: 700;">
+          </div>
+
+          <div class="rules-box" style="margin-bottom: 24px;">
+            <strong>⚠️ Tata Tertib Ujian:</strong>
+            <span>1. Layar akan otomatis masuk ke mode penuh (Kiosk Mode).</span>
+            <span>2. Dilarang menekan Alt+Tab, tombol Windows, atau membuka aplikasi lain.</span>
+            <span>3. Setiap percobaan meninggalkan layar akan dicatat sebagai pelanggaran. Akun terkunci otomatis pada 3 kali pelanggaran.</span>
+          </div>
+
+          <div style="display: flex; gap: 12px;">
+            <button type="button" class="btn-secondary" onclick="window.ExamApp.goHome()" style="flex: 1;">
+              Batal
+            </button>
+            <button type="submit" class="btn-primary" style="flex: 2; justify-content: center;">
+              Mulai Ujian Sekarang
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIEW 4: STUDENT CBT EXAM ROOM (ACTIVE TEST)
+       ============================================================ -->
+  <div class="app-view" id="view-student-exam">
+    <div class="exam-workspace">
+      <!-- Main Column: Question Content -->
+      <section class="exam-main-panel">
+        <div class="exam-subheader">
+          <div class="question-meta">
+            <span class="badge-qnum" id="q-num-badge">Soal No. 1</span>
+            <span class="badge-qpoints" id="q-points-badge">Bobot: 10 Poin</span>
+          </div>
+
+          <div class="exam-tools">
+            <!-- Countdown Timer -->
+            <div class="timer-container" id="exam-timer-container">
+              <span class="timer-icon">⏱️</span>
+              <span class="timer-display" id="exam-timer-display">45:00</span>
+            </div>
+
+            <!-- Font Size Adjuster -->
+            <div class="font-size-group">
+              <button class="font-btn" data-size="sm" title="Ukuran Font Kecil">A-</button>
+              <button class="font-btn active" data-size="md" title="Ukuran Font Sedang">A</button>
+              <button class="font-btn" data-size="lg" title="Ukuran Font Besar">A+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question Body -->
+        <div class="question-container">
+          <div class="question-text-box" id="question-text-box">
+            Sedang memuat soal ujian...
+          </div>
+
+          <!-- Multiple Choice Options -->
+          <div class="options-list" id="options-list">
+            <!-- Generated dynamically -->
+          </div>
+
+          <!-- Essay input area (if essay) -->
+          <div id="essay-input-box" style="display: none;"></div>
+        </div>
+
+        <!-- Exam Bottom Navigation Bar -->
+        <div class="exam-bottom-nav">
+          <button class="btn-secondary" id="btn-prev-q">
+            ◄ Soal Sebelumnya
+          </button>
+
+          <button class="btn-doubtful" id="btn-toggle-doubtful">
+            <span>?</span> Ragu-ragu
+          </button>
+
+          <div style="display: flex; gap: 10px;">
+            <button class="btn-primary" id="btn-next-q">
+              Soal Berikutnya ►
+            </button>
+            <button class="btn-submit-exam" id="btn-submit-exam-modal" style="display: none;">
+              Selesai Ujian ✔
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sidebar: Student info & Question Palette Grid -->
+      <aside class="exam-sidebar-panel">
+        <div class="sidebar-student-card">
+          <div class="student-avatar">👤</div>
+          <div class="student-meta">
+            <h4 id="student-name-display">Nama Siswa</h4>
+            <p id="student-nisn-display">NISN: -</p>
+          </div>
+        </div>
+
+        <div style="font-size: 13px; font-weight: 600; color: #38bdf8;" id="exam-subject-display">
+          Ujian Sekolah CBT
+        </div>
+
+        <!-- Strike Counter Banner -->
+        <div class="strike-warning-banner">
+          <span>Pelanggaran Anti-Cheat:</span>
+          <div class="strike-pills" id="sidebar-strike-pills">
+            <div class="strike-dot"></div>
+            <div class="strike-dot"></div>
+            <div class="strike-dot"></div>
+          </div>
+        </div>
+
+        <!-- Tools (Calculator Helper) -->
+        <button class="btn-secondary" id="btn-open-calculator" style="justify-content: center; font-size: 13px;">
+          🧮 Buka Kalkulator Bantuan
+        </button>
+
+        <!-- Question Palette (1..N) -->
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="palette-title">Daftar Nomor Soal</div>
+          <div class="question-palette-grid" id="question-palette-grid">
+            <!-- Numbers injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Palette Legend -->
+        <div class="palette-legend">
+          <div class="legend-item">
+            <div class="legend-color unanswered"></div>
+            <span>Belum Dijawab</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color answered"></div>
+            <span>Sudah Dijawab</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color doubtful"></div>
+            <span>Ragu-ragu</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIEW 5: STUDENT RESULT / REVIEW
+       ============================================================ -->
+  <div class="app-view" id="view-student-result">
+    <div class="result-container">
+      <div class="result-card">
+        <div style="font-size: 48px;">🎉</div>
+        <h2 style="font-size: 26px; color:#fff;">Ujian Telah Selesai!</h2>
+        <p style="color:var(--text-muted);" id="res-exam-title">Jawaban Anda berhasil dikirim ke server pusat pengawas.</p>
+
+        <div class="score-circle">
+          <span class="score-val" id="res-score-value">0</span>
+          <span class="score-max">NILAI AKHIR</span>
+        </div>
+
+        <div class="result-stats-grid">
+          <div class="stat-box">
+            <div class="stat-num" id="res-score-pct" style="color:#38bdf8;">0%</div>
+            <div class="stat-label">Persentase</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" id="res-correct-count" style="color:#34d399;">0</div>
+            <div class="stat-label">Benar</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" id="res-wrong-count" style="color:#f87171;">0</div>
+            <div class="stat-label">Salah</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <button class="btn-primary" onclick="window.ExamApp.goHome()" style="margin: 0 auto;">
+            Kembali ke Halaman Utama
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIEW 6: ADMIN & PROCTOR DASHBOARD
+       ============================================================ -->
+  <div class="app-view" id="view-admin-dashboard">
+    <div class="admin-workspace">
+      <div class="admin-header">
+        <div class="admin-header-title">
+          <h2>Panel Pengawas & Guru CBT</h2>
+          <p>Pengawasan ujian siswa, pengelolaan bank soal, dan ekspor nilai</p>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button class="btn-secondary" id="btn-refresh-monitoring">
+            🔄 Refresh Data
+          </button>
+          <button class="btn-secondary" onclick="window.ExamApp.goHome()">
+            🚪 Tutup Panel
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" data-tab="tab-overview">
+          📊 Ringkasan
+        </button>
+        <button class="admin-tab-btn" data-tab="tab-monitoring">
+          👁️ Live Monitoring Siswa
+        </button>
+        <button class="admin-tab-btn" data-tab="tab-exams">
+          📚 Bank Soal & Sesi Ujian
+        </button>
+        <button class="admin-tab-btn" data-tab="tab-grades">
+          📋 Rekap Nilai Siswa
+        </button>
+        <button class="admin-tab-btn" data-tab="tab-violations">
+          ⚠️ Log Pelanggaran Anti-Cheat
+        </button>
+      </div>
+
+      <!-- TAB 1: OVERVIEW -->
+      <div class="admin-tab-content active" id="tab-overview">
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-icon">📚</div>
+            <div class="stat-details">
+              <h4>Total Ujian Tersedia</h4>
+              <div class="stat-value" id="stat-total-exams">1</div>
+            </div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon">👥</div>
+            <div class="stat-details">
+              <h4>Siswa Aktif Mengerjakan</h4>
+              <div class="stat-value" id="stat-active-students">0</div>
+            </div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-icon">🔒</div>
+            <div class="stat-details">
+              <h4>Siswa Terkunci (Curang)</h4>
+              <div class="stat-value" id="stat-locked-students">0</div>
+            </div>
+          </div>
+          <div class="stat-card amber">
+            <div class="stat-icon">📝</div>
+            <div class="stat-details">
+              <h4>Ujian Selesai Dikumpulkan</h4>
+              <div class="stat-value" id="stat-total-submissions">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-card" style="margin-top: 20px;">
+          <div class="table-toolbar">
+            <h3>Informasi Jaringan Ujian & Cara Akses Siswa</h3>
+          </div>
+          <div style="padding: 24px; font-size: 14px; line-height: 1.8; color: var(--text-muted);">
+            <p>💻 <strong>Akses di Komputer Ini:</strong> Buka aplikasi langsung atau akses URL: <code style="color:#38bdf8;">http://localhost:3000</code></p>
+            <p>📱 <strong>Akses dari Laptop / HP / Tablet Siswa Lain (Wi-Fi Sekolah Sama):</strong> Siswa dapat membuka browser mereka dan mengakses alamat IP komputer pengawas di port 3000.</p>
+            <p>🔑 <strong>PIN Keluar Default Pengawas:</strong> <code style="color:#fbbf24; font-weight:700;">1234</code></p>
+            <p>🛡️ <strong>Kombinasi Tombol Darurat Pengawas:</strong> Tekan <kbd style="background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">Ctrl + Shift + Q</kbd> atau <kbd style="background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">Alt + X</kbd> untuk memunculkan modal keluar.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: LIVE MONITORING -->
+      <div class="admin-tab-content" id="tab-monitoring">
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h3>Pemantauan Status Siswa Real-Time</h3>
+            <span style="font-size: 12px; color: var(--text-dim);">Data diperbarui otomatis setiap 4 detik</span>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Nama Siswa</th>
+                  <th>NISN</th>
+                  <th>Kelas</th>
+                  <th>Progres Soal</th>
+                  <th>Pelanggaran</th>
+                  <th>Status</th>
+                  <th>Aksi Pengawas</th>
+                </tr>
+              </thead>
+              <tbody id="table-monitoring-body">
+                <tr>
+                  <td colspan="7" style="text-align: center; color: var(--text-dim); padding: 24px;">Memuat data sesi siswa...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: EXAMS & QUESTION BANK -->
+      <div class="admin-tab-content" id="tab-exams">
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h3>Daftar Bank Soal & Ujian Aktif</h3>
+            <button class="btn-primary" id="btn-generate-token" style="padding: 6px 14px; font-size: 13px;">
+              ⚡ Buat Token Baru
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Judul & Mata Pelajaran</th>
+                  <th>Token Ujian</th>
+                  <th>Durasi</th>
+                  <th>Jumlah Soal</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="table-exams-body">
+                <!-- Injected via cbt-admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: REKAP NILAI SISWA -->
+      <div class="admin-tab-content" id="tab-grades">
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h3>Rekapitulasi Nilai Ujian Siswa</h3>
+            <button class="btn-primary" id="btn-export-grades-csv" style="padding: 6px 16px; font-size: 13px;">
+              📥 Download Rekap Nilai (Excel / CSV)
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Siswa & NISN</th>
+                  <th>Kelas</th>
+                  <th>Ujian</th>
+                  <th>Nilai</th>
+                  <th>Keterangan</th>
+                  <th>Waktu Pengerjaan</th>
+                </tr>
+              </thead>
+              <tbody id="table-grades-body">
+                <!-- Injected via cbt-admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: VIOLATIONS LOG -->
+      <div class="admin-tab-content" id="tab-violations">
+        <div class="table-card">
+          <div class="table-toolbar">
+            <h3>Catatan Insiden Kecurangan Siswa</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Waktu</th>
+                  <th>Siswa</th>
+                  <th>Jenis Pelanggaran</th>
+                  <th>Keterangan Detil</th>
+                  <th>Status Strike</th>
+                </tr>
+              </thead>
+              <tbody id="table-violations-body">
+                <!-- Injected via cbt-admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODALS & OVERLAYS
+       ============================================================ -->
+
+  <!-- 1. Cheating Alert Overlay (Alarm) -->
+  <div class="cheat-alert-overlay" id="overlay-cheat-alert">
+    <div class="cheat-alert-box">
+      <div class="alert-siren-icon">⚠️</div>
+      <h2 id="cheat-alert-title">PERINGATAN KECURANGAN!</h2>
+      <p id="cheat-alert-desc">Anda terdeteksi melakukan tindakan terlarang selama ujian berlangsung.</p>
+      <div style="background: rgba(239, 68, 68, 0.2); border-radius: 8px; padding: 12px; font-weight: 700; color: #f87171;" id="cheat-alert-strike-info">
+        Peringatan ke-1 dari 3
+      </div>
+      <p style="font-size: 12px; color: var(--text-dim);">Tindakan ini dicatat ke log server pengawas. Jika mencapai 3 peringatan, ujian akan langsung terkunci.</p>
+      <button class="btn-primary" id="btn-dismiss-cheat-alert" style="justify-content: center; background: #ef4444;">
+        Saya Mengerti & Kembali ke Soal
+      </button>
+    </div>
+  </div>
+
+  <!-- 2. Lockout Screen (Account Locked by Strikes) -->
+  <div class="lockout-screen" id="overlay-lockout-screen">
+    <div class="lockout-icon">🔒</div>
+    <h1>UJIAN ANDA TERKUNCI!</h1>
+    <p>Anda telah mencapai batas maksimal 3 kali pelanggaran tata tertib ujian (berpindah tab, meminimalkan aplikasi, atau pintasan terlarang).</p>
+    <p style="color: #fbbf24; font-weight: 600;">Silakan hubungi Pengawas atau Guru di ruangan Anda untuk membuka kunci ujian.</p>
+    <button class="btn-secondary" onclick="window.ExamApp.openAdminExitModal()" style="margin-top: 16px;">
+      Buka Kunci Pengawas (PIN)
+    </button>
+  </div>
+
+  <!-- 3. Proctor / Admin Exit Modal -->
+  <div class="modal-overlay" id="modal-admin-exit">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>🔐 Autentikasi Pengawas / Keluar</h3>
+        <button class="btn-close-modal" onclick="window.ExamApp.closeAdminExitModal()">✕</button>
+      </div>
+      <p style="color: var(--text-muted); font-size: 14px;">
+        Masukkan PIN Pengawas untuk keluar dari Exam Browser atau membuka kunci siswa yang terblokir.
+      </p>
+      <div class="form-group">
+        <label class="form-label">PIN Pengawas (Default: 1234)</label>
+        <input type="password" class="form-input" id="exit-pin-input" placeholder="Masukkan 4 digit PIN..." maxlength="8" style="font-size: 18px; letter-spacing: 4px; text-align: center;">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" onclick="window.ExamApp.closeAdminExitModal()">Batal</button>
+        <button type="button" class="btn-danger" id="btn-confirm-exit-app">Keluar Aplikasi</button>
+        <button type="button" class="btn-primary" id="btn-unlock-student-now">Buka Kunci Siswa</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Admin Login Modal (for dashboard access) -->
+  <div class="modal-overlay" id="modal-admin-login">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>🔑 Masuk Panel Pengawas</h3>
+        <button class="btn-close-modal" onclick="window.ExamApp.closeAdminLoginModal()">✕</button>
+      </div>
+      <form id="admin-login-form">
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label class="form-label">PIN Keamanan Pengawas</label>
+          <input type="password" class="form-input" id="admin-pin-input" placeholder="Masukkan PIN (Default: 1234)" required style="font-size: 16px; letter-spacing: 3px; text-align: center;">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="window.ExamApp.closeAdminLoginModal()">Batal</button>
+          <button type="submit" class="btn-primary">Verifikasi PIN</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Confirm Final Submit Modal -->
+  <div class="modal-overlay" id="modal-confirm-submit">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Konfirmasi Kumpulkan Ujian</h3>
+      </div>
+      <p style="color: var(--text-muted); font-size: 14px;">
+        Apakah Anda yakin ingin menyelesaikan dan mengumpulkan lembar jawaban ujian sekarang?
+      </p>
+      <div style="background: rgba(15, 23, 42, 0.7); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color:#6ee7b7;">✔ Soal Dijawab:</span>
+          <strong id="summary-answered-count">0</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color:#fbbf24;">★ Soal Ragu-ragu:</span>
+          <strong id="summary-doubtful-count">0</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color:#f87171;">✕ Belum Dijawab:</span>
+          <strong id="summary-unanswered-count">0</strong>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="btn-cancel-submit">Periksa Kembali</button>
+        <button type="button" class="btn-primary" id="btn-do-final-submit" style="background: #10b981;">Ya, Kumpulkan Sekarang</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Built-in Calculator Modal -->
+  <div class="modal-overlay" id="modal-calculator">
+    <div class="modal-box" style="max-width: 320px; padding: 20px;">
+      <div class="modal-header">
+        <h3>🧮 Kalkulator Bantuan</h3>
+        <button class="btn-close-modal" onclick="document.getElementById('modal-calculator').classList.remove('active')">✕</button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <input type="text" id="calc-display" readonly style="width: 100%; height: 50px; background: #0f172a; border: 1px solid var(--border-color); color: #38bdf8; font-family: monospace; font-size: 24px; text-align: right; padding: 8px 12px; border-radius: 6px;" value="0">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+          <button class="btn-secondary" onclick="window.ExamApp.calcClear()">C</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('/')">/</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('*')">×</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcDelete()">⌫</button>
+          
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('7')">7</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('8')">8</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('9')">9</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('-')">-</button>
+          
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('4')">4</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('5')">5</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('6')">6</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('+')">+</button>
+          
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('1')">1</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('2')">2</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('3')">3</button>
+          <button class="btn-primary" style="grid-row: span 2; justify-content: center;" onclick="window.ExamApp.calcCompute()">=</button>
+          
+          <button class="btn-secondary" style="grid-column: span 2;" onclick="window.ExamApp.calcAppend('0')">0</button>
+          <button class="btn-secondary" onclick="window.ExamApp.calcAppend('.')">.</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+</div>
+
+<!-- ============================================================
+     APPLICATION SCRIPTS
+     ============================================================ -->
+<script src="js/anti-cheat.js"></script>
+<script src="js/cbt-student.js"></script>
+<script src="js/cbt-admin.js"></script>
+<script src="js/external-browser.js"></script>
+
+<!-- Main App Coordinator Script -->
+<script>
+class MainExamApp {
+  constructor() {
+    this.currentView = 'view-portal';
+    this.calcInput = '0';
+    this.init();
+  }
+
+  init() {
+    this.initClock();
+    this.initSystemDiagnostics();
+    this.initAntiCheatBindings();
+    this.initModals();
+  }
+
+  // --- Real-time Digital Clock ---
+  initClock() {
+    const clockEl = document.getElementById('system-clock-display');
+    const update = () => {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      if (clockEl) clockEl.textContent = `${h}:${m}:${s} WIB`;
+    };
+    update();
+    setInterval(update, 1000);
+  }
+
+  // --- System Diagnostics (Resolution, Battery, Network) ---
+  initSystemDiagnostics() {
+    const resEl = document.getElementById('diag-resolution');
+    if (resEl) {
+      resEl.textContent = `${window.screen.width} x ${window.screen.height}`;
+    }
+
+    // Network status listener
+    window.addEventListener('online', () => this.updateNetwork(true));
+    window.addEventListener('offline', () => this.updateNetwork(false));
+    this.updateNetwork(navigator.onLine);
+
+    // Battery API if supported
+    if (navigator.getBattery) {
+      navigator.getBattery().then(bat => {
+        const batEl = document.getElementById('system-battery-display');
+        const updateBat = () => {
+          if (batEl) {
+            batEl.style.display = 'inline-flex';
+            batEl.textContent = `🔋 ${Math.round(bat.level * 100)}%`;
+          }
+        };
+        updateBat();
+        bat.addEventListener('levelchange', updateBat);
+      }).catch(() => {});
+    }
+  }
+
+  updateNetwork(isOnline) {
+    const badge = document.getElementById('badge-network-status');
+    const label = document.getElementById('label-network-status');
+    const diag = document.getElementById('diag-connection-text');
+
+    if (badge && label) {
+      badge.classList.toggle('active', isOnline);
+      label.textContent = isOnline ? 'ONLINE' : 'TERPUTUS';
+    }
+    if (diag) {
+      diag.textContent = isOnline ? 'Terhubung (LAN / Online)' : 'Terputus (Periksa Wi-Fi)';
+      diag.style.color = isOnline ? '#34d399' : '#f87171';
+    }
+  }
+
+  // --- AntiCheat Callbacks Binding ---
+  initAntiCheatBindings() {
+    window.AntiCheat.onViolationCallback = (data) => {
+      if (data.isLocked) {
+        document.getElementById('overlay-lockout-screen').classList.add('active');
+        return;
+      }
+
+      // Show alert overlay
+      const overlay = document.getElementById('overlay-cheat-alert');
+      const title = document.getElementById('cheat-alert-title');
+      const desc = document.getElementById('cheat-alert-desc');
+      const strikeInfo = document.getElementById('cheat-alert-strike-info');
+
+      title.textContent = `PERINGATAN PELANGGARAN!`;
+      desc.textContent = data.details || 'Terdeteksi upaya meninggalkan jendela ujian.';
+      strikeInfo.textContent = `Peringatan ke-${data.strikes} dari ${data.maxStrikes}`;
+
+      overlay.classList.add('active');
+
+      if (window.CBTStudent) {
+        window.CBTStudent.updateStrikeDisplay(data.strikes);
+      }
+    };
+
+    window.AntiCheat.onLockedCallback = (data) => {
+      document.getElementById('overlay-cheat-alert').classList.remove('active');
+      document.getElementById('overlay-lockout-screen').classList.add('active');
+    };
+
+    document.getElementById('btn-dismiss-cheat-alert').addEventListener('click', () => {
+      document.getElementById('overlay-cheat-alert').classList.remove('active');
+      window.AntiCheat.requestFullscreen();
+    });
+  }
+
+  // --- View Switcher ---
+  switchView(viewId) {
+    document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+    const target = document.getElementById(viewId);
+    if (target) {
+      target.classList.add('active');
+      this.currentView = viewId;
+    }
+  }
+
+  goHome() {
+    if (window.AntiCheat.isActive) {
+      if (!confirm('Ujian sedang berlangsung! Apakah Anda yakin ingin membatalkan/kembali ke beranda?')) {
+        return;
+      }
+      window.AntiCheat.stopSession();
+    }
+    this.switchView('view-portal');
+  }
+
+  // --- Modals Management ---
+  initModals() {
+    document.getElementById('btn-open-exit-modal').addEventListener('click', () => {
+      this.openAdminExitModal();
+    });
+
+    document.getElementById('btn-confirm-exit-app').addEventListener('click', () => {
+      const pin = document.getElementById('exit-pin-input').value.trim();
+      this.verifyExitPin(pin, () => {
+        window.ExamApp.showToast('Menutup aplikasi Exam Browser...', 'info');
+        fetch('/api/system/exit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pin })
+        }).catch(() => {});
+        setTimeout(() => {
+          window.AntiCheat.exitFullscreen();
+          window.close();
+          // If window.close() blocked by browser: redirect or clear
+          document.body.innerHTML = `
+            <div style="display:flex; height:100vh; align-items:center; justify-content:center; flex-direction:column; background:#0a0f1d; color:#fff; text-align:center;">
+              <h1 style="font-size:32px; margin-bottom:12px;">Exam Browser Ditutup</h1>
+              <p style="color:#94a3b8;">Sesi ujian telah selesai secara aman. Anda dapat menutup jendela ini.</p>
+            </div>
+          `;
+        }, 600);
+      });
+    });
+
+    document.getElementById('btn-unlock-student-now').addEventListener('click', () => {
+      const pin = document.getElementById('exit-pin-input').value.trim();
+      this.verifyExitPin(pin, () => {
+        document.getElementById('overlay-lockout-screen').classList.remove('active');
+        document.getElementById('modal-admin-exit').classList.remove('active');
+        window.AntiCheat.strikes = 0;
+        if (window.CBTStudent) window.CBTStudent.updateStrikeDisplay(0);
+        this.showToast('Kunci ujian berhasil dibuka oleh Pengawas!', 'success');
+      });
+    });
+  }
+
+  openAdminExitModal() {
+    document.getElementById('exit-pin-input').value = '';
+    document.getElementById('modal-admin-exit').classList.add('active');
+  }
+
+  closeAdminExitModal() {
+    document.getElementById('modal-admin-exit').classList.remove('active');
+  }
+
+  openAdminLoginModal() {
+    document.getElementById('admin-pin-input').value = '';
+    document.getElementById('modal-admin-login').classList.add('active');
+  }
+
+  closeAdminLoginModal() {
+    document.getElementById('modal-admin-login').classList.remove('active');
+  }
+
+  async verifyExitPin(pin, onSuccess) {
+    if (!pin) {
+      this.showToast('Masukkan PIN Pengawas terlebih dahulu!', 'warning');
+      return;
+    }
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        onSuccess();
+      } else {
+        this.showToast(data.error || 'PIN Pengawas Salah!', 'danger');
+      }
+    } catch (e) {
+      // Offline fallback check: default PIN 1234
+      if (pin === '1234') {
+        onSuccess();
+      } else {
+        this.showToast('PIN Pengawas Salah!', 'danger');
+      }
+    }
+  }
+
+  // --- Calculator Logic ---
+  calcAppend(val) {
+    const disp = document.getElementById('calc-display');
+    if (this.calcInput === '0' && val !== '.') {
+      this.calcInput = val;
+    } else {
+      this.calcInput += val;
+    }
+    disp.value = this.calcInput;
+  }
+
+  calcClear() {
+    this.calcInput = '0';
+    document.getElementById('calc-display').value = '0';
+  }
+
+  calcDelete() {
+    this.calcInput = this.calcInput.slice(0, -1);
+    if (!this.calcInput) this.calcInput = '0';
+    document.getElementById('calc-display').value = this.calcInput;
+  }
+
+  calcCompute() {
+    try {
+      // Evaluate sanitized arithmetic expression
+      const sanitized = this.calcInput.replace(/[^0-9+\-*/.]/g, '');
+      const result = Function(`'use strict'; return (${sanitized})`)();
+      this.calcInput = String(result);
+      document.getElementById('calc-display').value = this.calcInput;
+    } catch (e) {
+      document.getElementById('calc-display').value = 'Error';
+      this.calcInput = '0';
+    }
+  }
+
+  showToast(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    container.appendChild(toast);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 300);
+    }, 3200);
+  }
+}
+
+// Instantiate App
+window.ExamApp = new MainExamApp();
+</script>
+
+</body>
+</html>

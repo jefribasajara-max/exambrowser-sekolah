@@ -1,0 +1,651 @@
+{
+  "settings": {
+    "adminPin": "1234",
+    "schoolName": "CBT EXAM BROWSER INDONESIA",
+    "schoolTagline": "Sistem Ujian Terkunci & Aman Berstandar Nasional",
+    "maxStrikes": 3,
+    "allowCalculator": true,
+    "preventRightClick": true,
+    "preventInspect": true,
+    "fullScreenEnforced": true,
+    "externalPresets": [
+      {
+        "name": "Google Forms",
+        "url": "https://docs.google.com/forms"
+      },
+      {
+        "name": "Moodle LMS",
+        "url": "https://moodle.org"
+      },
+      {
+        "name": "Simulasi CBT Mandiri",
+        "url": "http://localhost:3000"
+      },
+      {
+        "name": "Server CBT Lokal (Port 8080)",
+        "url": "http://localhost:8080"
+      }
+    ]
+  },
+  "exams": [
+    {
+      "id": "exam-simulasi-01",
+      "title": "Simulasi Ujian Akhir Semester (CBT Nasional)",
+      "subject": "Pengetahuan Umum & Sains Teknologi",
+      "durationMinutes": 45,
+      "token": "EXM2026",
+      "isActive": true,
+      "randomizeQuestions": false,
+      "questions": [
+        {
+          "id": "q1",
+          "number": 1,
+          "type": "multiple-choice",
+          "question": "Komponen perangkat keras komputer yang berfungsi sebagai otak utama dalam memproses instruksi aritmatika dan logika adalah...",
+          "options": [
+            {
+              "key": "A",
+              "text": "RAM (Random Access Memory)"
+            },
+            {
+              "key": "B",
+              "text": "CPU (Central Processing Unit)"
+            },
+            {
+              "key": "C",
+              "text": "SSD (Solid State Drive)"
+            },
+            {
+              "key": "D",
+              "text": "GPU (Graphics Processing Unit)"
+            },
+            {
+              "key": "E",
+              "text": "Power Supply Unit"
+            }
+          ],
+          "correctKey": "B",
+          "points": 10
+        },
+        {
+          "id": "q2",
+          "number": 2,
+          "type": "multiple-choice",
+          "question": "Protokol jaringan yang digunakan untuk mengamankan komunikasi data di web browser menggunakan enkripsi SSL/TLS adalah...",
+          "options": [
+            {
+              "key": "A",
+              "text": "HTTP"
+            },
+            {
+              "key": "B",
+              "text": "FTP"
+            },
+            {
+              "key": "C",
+              "text": "HTTPS"
+            },
+            {
+              "key": "D",
+              "text": "SMTP"
+            },
+            {
+              "key": "E",
+              "text": "DNS"
+            }
+          ],
+          "correctKey": "C",
+          "points": 10
+        },
+        {
+          "id": "q3",
+          "number": 3,
+          "type": "multiple-choice",
+          "question": "Sebuah segitiga siku-siku memiliki panjang alas 6 cm dan tinggi 8 cm. Berapakah panjang sisi miring (hipotenusa) segitiga tersebut?",
+          "options": [
+            {
+              "key": "A",
+              "text": "9 cm"
+            },
+            {
+              "key": "B",
+              "text": "10 cm"
+            },
+            {
+              "key": "C",
+              "text": "12 cm"
+            },
+            {
+              "key": "D",
+              "text": "14 cm"
+            },
+            {
+              "key": "E",
+              "text": "15 cm"
+            }
+          ],
+          "correctKey": "B",
+          "points": 10
+        },
+        {
+          "id": "q4",
+          "number": 4,
+          "type": "multiple-choice",
+          "question": "Langkah pertama yang paling bijak dan aman saat terjadi insiden kebocoran akun atau serangan phishing adalah...",
+          "options": [
+            {
+              "key": "A",
+              "text": "Mengunggah screenshot ke media sosial"
+            },
+            {
+              "key": "B",
+              "text": "Segera mengganti kata sandi dan mengaktifkan Two-Factor Authentication (2FA)"
+            },
+            {
+              "key": "C",
+              "text": "Menghapus seluruh file dokumen pada komputer"
+            },
+            {
+              "key": "D",
+              "text": "Mematikan sambungan listrik PLN di seluruh gedung"
+            },
+            {
+              "key": "E",
+              "text": "Mengklik tautan dari pesan mencurigakan untuk memastikannya"
+            }
+          ],
+          "correctKey": "B",
+          "points": 10
+        },
+        {
+          "id": "q5",
+          "number": 5,
+          "type": "multiple-choice",
+          "question": "Dalam tata bahasa Indonesia yang baku, penulisan kata serapan yang benar menurut KBBI adalah...",
+          "options": [
+            {
+              "key": "A",
+              "text": "Analisa, sistim, kwitansi"
+            },
+            {
+              "key": "B",
+              "text": "Analisis, sistem, kuitansi"
+            },
+            {
+              "key": "C",
+              "text": "Analysa, sistym, quitansi"
+            },
+            {
+              "key": "D",
+              "text": "Analisis, sistim, kwitansi"
+            },
+            {
+              "key": "E",
+              "text": "Analisa, sistem, kuitansi"
+            }
+          ],
+          "correctKey": "B",
+          "points": 10
+        },
+        {
+          "id": "q6",
+          "number": 6,
+          "type": "multiple-choice",
+          "question": "Organel sel tumbuhan yang bertanggung jawab terhadap proses fotosintesis dan menghasilkan klorofil adalah...",
+          "options": [
+            {
+              "key": "A",
+              "text": "Mitokondria"
+            },
+            {
+              "key": "B",
+              "text": "Ribosom"
+            },
+            {
+              "key": "C",
+              "text": "Kloroplas"
+            },
+            {
+              "key": "D",
+              "text": "Badan Golgi"
+            },
+            {
+              "key": "E",
+              "text": "Vakuola"
+            }
+          ],
+          "correctKey": "C",
+          "points": 10
+        },
+        {
+          "id": "q7",
+          "number": 7,
+          "type": "multiple-choice",
+          "question": "Nilai dari operasi matematika 25 × 4 - 30 ÷ 5 adalah...",
+          "options": [
+            {
+              "key": "A",
+              "text": "94"
+            },
+            {
+              "key": "B",
+              "text": "84"
+            },
+            {
+              "key": "C",
+              "text": "96"
+            },
+            {
+              "key": "D",
+              "text": "74"
+            },
+            {
+              "key": "E",
+              "text": "100"
+            }
+          ],
+          "correctKey": "A",
+          "points": 10
+        },
+        {
+          "id": "q8",
+          "number": 8,
+          "type": "multiple-choice",
+          "question": "Salah satu fungsi utama sistem Exam Browser dalam pelaksanaan ujian berbasis komputer (CBT) adalah...",
+          "options": [
+            {
+              "key": "A",
+              "text": "Mempercepat kecepatan internet secara otomatis"
+            },
+            {
+              "key": "B",
+              "text": "Mencegah siswa membuka tab lain, aplikasi lain, atau mencari contekan selama ujian"
+            },
+            {
+              "key": "C",
+              "text": "Menggantikan peran pengawas ujian secara fisik seutuhnya"
+            },
+            {
+              "key": "D",
+              "text": "Memperbaiki jawaban siswa yang salah secara otomatis"
+            },
+            {
+              "key": "E",
+              "text": "Menambah durasi ujian saat koneksi internet lambat"
+            }
+          ],
+          "correctKey": "B",
+          "points": 10
+        },
+        {
+          "id": "q9",
+          "number": 9,
+          "type": "multiple-choice",
+          "question": "Planet terdekat dari matahari dalam tata surya kita adalah...",
+          "options": [
+            {
+              "key": "A",
+              "text": "Venus"
+            },
+            {
+              "key": "B",
+              "text": "Merkurius"
+            },
+            {
+              "key": "C",
+              "text": "Mars"
+            },
+            {
+              "key": "D",
+              "text": "Bumi"
+            },
+            {
+              "key": "E",
+              "text": "Jupiter"
+            }
+          ],
+          "correctKey": "B",
+          "points": 10
+        },
+        {
+          "id": "q10",
+          "number": 10,
+          "type": "essay",
+          "question": "Jelaskan secara ringkas 3 (tiga) dampak positif pemanfaatan teknologi digital dalam dunia pendidikan di Indonesia!",
+          "options": [],
+          "correctKey": "",
+          "points": 10
+        }
+      ]
+    }
+  ],
+  "sessions": {
+    "exam-simulasi-01_0012345678": {
+      "sessionId": "exam-simulasi-01_0012345678",
+      "examId": "exam-simulasi-01",
+      "nisn": "0012345678",
+      "name": "Ahmad Farhan",
+      "className": "XII MIPA 1",
+      "startTime": 1790946810569,
+      "durationMinutes": 45,
+      "answers": {
+        "q1": {
+          "answer": "B",
+          "isDoubtful": false,
+          "savedAt": "2026-10-02T13:13:36.468Z"
+        }
+      },
+      "strikes": 0,
+      "isLocked": false,
+      "lockReason": null,
+      "isFinished": true,
+      "currentQuestionIndex": 0,
+      "updatedAt": "2026-10-02T13:14:19.232Z"
+    },
+    "exam-simulasi-01_1234567890": {
+      "sessionId": "exam-simulasi-01_1234567890",
+      "examId": "exam-simulasi-01",
+      "nisn": "1234567890",
+      "name": "Budi Santoso",
+      "className": "XII-IPA-1",
+      "startTime": 1790950294755,
+      "durationMinutes": 45,
+      "answers": {
+        "q1": {
+          "answer": "B",
+          "isDoubtful": false,
+          "savedAt": "2026-10-02T14:11:38.459Z"
+        }
+      },
+      "strikes": 0,
+      "isLocked": false,
+      "lockReason": null,
+      "isFinished": true,
+      "currentQuestionIndex": 0,
+      "updatedAt": "2026-10-02T14:11:46.724Z"
+    },
+    "exam-simulasi-01_9999999999": {
+      "sessionId": "exam-simulasi-01_9999999999",
+      "examId": "exam-simulasi-01",
+      "nisn": "9999999999",
+      "name": "Siswa Baru",
+      "className": "Reguler",
+      "startTime": 1790950724575,
+      "durationMinutes": 45,
+      "answers": {},
+      "strikes": 0,
+      "isLocked": false,
+      "lockReason": null,
+      "isFinished": false,
+      "currentQuestionIndex": 0,
+      "updatedAt": "2026-10-02T14:18:44.575Z"
+    }
+  },
+  "submissions": [
+    {
+      "id": "sub-1790950306724",
+      "submittedAt": "2026-10-02T14:11:46.724Z",
+      "sessionId": "exam-simulasi-01_1234567890",
+      "examId": "exam-simulasi-01",
+      "examTitle": "Simulasi Ujian Akhir Semester (CBT Nasional)",
+      "subject": "Pengetahuan Umum & Sains Teknologi",
+      "nisn": "1234567890",
+      "name": "Budi Santoso",
+      "className": "XII-IPA-1",
+      "startTime": 1790950294755,
+      "finishTime": 1790950306723,
+      "timeSpentSeconds": 12,
+      "totalScore": 10,
+      "maxPossibleScore": 100,
+      "percentage": 10,
+      "correctCount": 1,
+      "wrongCount": 0,
+      "essayCount": 1,
+      "unansweredCount": 9,
+      "totalQuestions": 10,
+      "strikes": 0,
+      "answers": {
+        "q1": {
+          "answer": "B",
+          "isDoubtful": false,
+          "savedAt": "2026-10-02T14:11:38.459Z"
+        }
+      },
+      "detailedAnswers": [
+        {
+          "questionId": "q1",
+          "number": 1,
+          "type": "multiple-choice",
+          "studentAnswer": "B",
+          "correctKey": "B",
+          "isCorrect": true,
+          "pointsEarned": 10,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q2",
+          "number": 2,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "C",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q3",
+          "number": 3,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "B",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q4",
+          "number": 4,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "B",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q5",
+          "number": 5,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "B",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q6",
+          "number": 6,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "C",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q7",
+          "number": 7,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "A",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q8",
+          "number": 8,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "B",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q9",
+          "number": 9,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "B",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q10",
+          "number": 10,
+          "type": "essay",
+          "studentAnswer": "",
+          "correctKey": "",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        }
+      ]
+    },
+    {
+      "id": "sub-1790946859230",
+      "submittedAt": "2026-10-02T13:14:19.230Z",
+      "sessionId": "exam-simulasi-01_0012345678",
+      "examId": "exam-simulasi-01",
+      "examTitle": "Simulasi Ujian Akhir Semester (CBT Nasional)",
+      "subject": "Pengetahuan Umum & Sains Teknologi",
+      "nisn": "0012345678",
+      "name": "Ahmad Farhan",
+      "className": "XII MIPA 1",
+      "startTime": 1790946810569,
+      "finishTime": 1790946859229,
+      "timeSpentSeconds": 49,
+      "totalScore": 10,
+      "maxPossibleScore": 100,
+      "percentage": 10,
+      "correctCount": 1,
+      "wrongCount": 0,
+      "essayCount": 1,
+      "unansweredCount": 9,
+      "totalQuestions": 10,
+      "strikes": 0,
+      "answers": {
+        "q1": {
+          "answer": "B",
+          "isDoubtful": false,
+          "savedAt": "2026-10-02T13:13:36.468Z"
+        }
+      },
+      "detailedAnswers": [
+        {
+          "questionId": "q1",
+          "number": 1,
+          "type": "multiple-choice",
+          "studentAnswer": "B",
+          "correctKey": "B",
+          "isCorrect": true,
+          "pointsEarned": 10,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q2",
+          "number": 2,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "C",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q3",
+          "number": 3,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "B",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q4",
+          "number": 4,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "B",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q5",
+          "number": 5,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "B",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q6",
+          "number": 6,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "C",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q7",
+          "number": 7,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "A",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q8",
+          "number": 8,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "B",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q9",
+          "number": 9,
+          "type": "multiple-choice",
+          "studentAnswer": "",
+          "correctKey": "B",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        },
+        {
+          "questionId": "q10",
+          "number": 10,
+          "type": "essay",
+          "studentAnswer": "",
+          "correctKey": "",
+          "isCorrect": false,
+          "pointsEarned": 0,
+          "pointsPossible": 10
+        }
+      ]
+    }
+  ],
+  "violations": []
+}
